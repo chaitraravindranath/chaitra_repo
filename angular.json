@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "chaitra-app"
+    }
+  },
+  "defaultProject": "chaitra-app",
+  "cli": {
+    "analytics": false
+  }
 }
