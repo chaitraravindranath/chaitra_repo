@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'chaitra-app';
+  queryParams = [];
+
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient ) { }
+  
+  navigate(path) {
+    this.router.navigate([path], { queryParams: {parameter: 'value1'}});
+  }
 }

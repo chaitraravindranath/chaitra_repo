@@ -1,0 +1,18 @@
+<app-search [(searchModel)]="searchModel"></app-search>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | listFilter: searchModel">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</table>
