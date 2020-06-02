@@ -12,7 +12,7 @@ export class PostsComponent implements OnInit {
   posts: any[];
   public name: string;
   constructor(private service: PostService, private route: ActivatedRoute) {
-
+    console.log ("Post component");
   }
 
   ngOnInit(): void {

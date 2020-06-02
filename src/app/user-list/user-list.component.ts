@@ -8,7 +8,7 @@ import { User} from '../model';
 })
 export class UserListComponent {
   @Input()
-  public users:  User[] ;
+  public users;
   
   public currentUser: User;
   

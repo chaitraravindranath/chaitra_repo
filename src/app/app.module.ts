@@ -10,15 +10,17 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user/user.component';
 import { ListFilterPipe } from './user-list/list-filter.pipe';
 import { UserService } from './services/user.service';
+import { PostService } from './services/post.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostsComponent, 
     SearchComponent, 
-    UserListComponent, UserComponent, ListFilterPipe
-    // AComponent, 
-    // BComponent, 
+    UserListComponent, 
+    UserComponent, 
+    ListFilterPipe
+
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,7 @@ import { UserService } from './services/user.service';
     HttpClientModule ,
     AppRoutingModule    
   ],
-  providers: [UserService],
+  providers: [UserService, PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

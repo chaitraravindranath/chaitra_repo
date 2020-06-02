@@ -1,5 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { UserService } from './../services/user.service';
+import { User} from '../model';
+import {
+   debounceTime, distinctUntilChanged, switchMap, map
+ } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -9,30 +15,35 @@ import { Router } from '@angular/router';
 export class SearchComponent implements OnInit{
   title = "User Search";
 
-  @Input() searchModel;
+  users$: Observable<User[]>;
+  searchModel: string;
 
-  @Output() searchModelChange: EventEmitter<any> = new EventEmitter();
+  constructor(private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) {
 
-  constructor(private router: Router) {
-    // this.myGroup = fb.group({
-    //   name: ['', Validators.required]
-    // })
-
-    // this.myGroup.controls['name'].valueChanges.pipe(
-    //   debounceTime(300),
-    //   distinctUntilChanged(),
-    //   tap(name => console.log(name))
-    // ).subscribe((name: string) => {
-    //   this.router.navigate([''], { queryParams: { name } })
-    // });
   }
 
-  ngOnInit(){ }
-
-  updateSearchModel(value) {
-    this.searchModel = value;
-    this.searchModelChange.emit(this.searchModel);
+  search(searchModel: string): void {
+    this.router.navigate(['posts'], {queryParams: {search: searchModel}});
   }
-  
 
+  ngOnInit(){ 
+    this.searchModel = this.route.snapshot.queryParams.search;
+
+    this.users$ = this.route.queryParams.pipe(
+      // take the search term from the query string
+      map(query=>query.search || ''),
+
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((searchModel: string) => this.userService.searchUsers(this.searchModel)),
+    );
+  }
+ 
 }

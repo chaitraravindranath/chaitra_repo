@@ -7,7 +7,7 @@
         <div id="content">
           <form class='form-inline'>
             <div class="input-group">
-              <input #searchBox type='text' placeholder="Name" [ngModel]="searchModel" [ngModelOptions]="{standalone: true}" (input)="search(searchBox.value)" (ngModelChange)="updateSearchModel($event)">
+              <input #searchBox type='text' placeholder="Name" [ngModel]="searchModel" [ngModelOptions]="{standalone: true}" (input)="search(searchBox.value)">
               <div class="input-group-btn">
                 <button class="btn btn-info">
                 <span class="glyphicon glyphicon-search"></span>
